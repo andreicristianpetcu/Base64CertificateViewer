@@ -8,3 +8,4 @@ dist/
 packages/
 
 coverage/
+bower_components/

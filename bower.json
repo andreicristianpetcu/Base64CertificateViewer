@@ -1,0 +1,21 @@
+{
+  "name": "base64-certificate-viewer",
+  "description": "You can see the details of certificates.",
+  "main": "",
+  "authors": [
+    "Andrei Cristian Petcu <andrei@ceata.org>"
+  ],
+  "license": "GPLv3",
+  "homepage": "https://github.com/andreicristianpetcu/Base64CertificateViewer",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bower-forge": "^0.6.26"
+  }
+}

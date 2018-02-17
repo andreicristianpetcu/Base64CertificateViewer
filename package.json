@@ -20,7 +20,7 @@
     "test:watchdesktop": "./node_modules/karma/bin/karma start karma.conf.js --browsers Firefox --watch",
     "lint": "standard",
     "sign": "./node_modules/web-ext/bin/web-ext sign --api-key=$AMO_API_KEY --api-secret=$AMO_API_SECRET -s dist/firefox",
-    "web-ext-run": "./node_modules/web-ext/bin/web-ext run -s dist"
+    "web-ext-run": "./node_modules/web-ext/bin/web-ext run -s dist/firefox"
   },
   "standard": {
     "globals": [
