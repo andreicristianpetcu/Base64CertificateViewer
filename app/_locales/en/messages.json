@@ -1,0 +1,14 @@
+{
+  "appName": {
+    "message": "Base64 Certificate Viewer",
+    "description": "The name of the application"
+  },
+  "appShortName": {
+    "message": "Certificate Viewer",
+    "description": "The short_name (maximum of 12 characters recommended) is a short version of the app's name."
+  },
+  "appDescription": {
+    "message": "You can see the details of certificates.",
+    "description": "The description of the application"
+  }
+}
