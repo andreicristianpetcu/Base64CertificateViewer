@@ -1,5 +1,5 @@
 {
-  "name": "Base64-Certificate-Viewer",
+  "name": "base64-certificate-viewer",
   "private": true,
   "version": "0.0.0",
   "description": "You can see the details of certificates.",
@@ -58,6 +58,7 @@
     "jasmine": "^2.9.0",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^2.2.0",
+    "karma-commonjs": "^1.0.0",
     "karma-coverage": "^1.1.1",
     "karma-firefox-launcher": "^1.1.0",
     "karma-jasmine": "^1.1.1",
