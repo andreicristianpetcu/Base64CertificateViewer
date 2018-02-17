@@ -19,6 +19,6 @@ chrome.contextMenus.create({
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
   if (info.menuItemId == 'view-certificate') {
-    console.log(info.selectionText);
+    console.log(getCertificate(info.selectionText));
   }
 });
