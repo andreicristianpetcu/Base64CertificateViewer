@@ -78,5 +78,9 @@
     "web-ext": "^2.4.0",
     "webpack": "3.x.x",
     "webpack-stream": "3.x.x"
+  },
+  "dependencies": {
+    "forge": "^2.3.0",
+    "node-forge": "^0.7.1"
   }
 }

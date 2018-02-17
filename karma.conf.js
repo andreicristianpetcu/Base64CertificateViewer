@@ -1,6 +1,7 @@
 module.exports = function(config) {
     config.set({
       files: [
+        'node_modules/node-forge/dist/forge.min.js',
         'app/scripts/background.js',
         'test/**/*.js'
       ],

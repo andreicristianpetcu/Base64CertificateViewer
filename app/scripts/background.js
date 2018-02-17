@@ -3,23 +3,13 @@
 
 'use strict';
 
-function str2ab(str) {
-    var buf = new ArrayBuffer(str.length);
-    var bufView = new Uint8Array(buf);
-
-    for(var i = 0, strLen = str.length; i < strLen; i++)
-        bufView[i] = str.charCodeAt(i);
-
-    return buf;
-};
-
 function getCertificate(source) {
   var CertPEM = source.replace(/(-----(BEGIN|END) CERTIFICATE-----|\n)/g, '');
-  var CertBuf = str2ab(CertPEM);
-  var asn1 = pkijs.org.pkijs.fromBER(CertBuf);
-  var cert_simpl = new pkijs.org.pkijs.simpl.CERT({ schema: asn1.result });
+  const caStore = forge.pki.createCaStore();
+  caStore.addCertificate(source);
+  console.log(JSON.stringify(caStore.listAllCertificates()[0].subject.attributes[1].value, null, 2));
   return {
-    commonName: 'fake'
+    commonName: caStore.listAllCertificates()[0].subject.attributes[1].value
   };
 }
 

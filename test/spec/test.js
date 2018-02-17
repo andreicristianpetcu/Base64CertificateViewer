@@ -2,7 +2,7 @@
   'use strict';
 
   describe('Tests certificate parser', function () {
-    it('should extract certificate from XML tags', function() {
+    it('should extract certificate issuer from simple PEM certificate', function() {
 
       expect(getCertificate(getLetsEncryptCertificate()).commonName).toBe('DST Root CA X3');
     });
