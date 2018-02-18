@@ -17,8 +17,16 @@
         expect(getCertificate(getLetsEncryptCertificate()).issuer).toBe('DST Root CA X3, Digital Signature Trust Co.');
       });
 
-      xit('should have serial number', function () {
+      it('should have serial number', function () {
         expect(getCertificate(getLetsEncryptCertificate()).serialNumber).toBe('44afb080d6a327ba893039862ef8406b');
+      });
+
+      xit('should have valid from', function () {
+        expect(getCertificate(getLetsEncryptCertificate()).validFrom).toBe('September 30, 2000');
+      });
+
+      xit('should have valid to', function () {
+        expect(getCertificate(getLetsEncryptCertificate()).validTo).toBe('September 30, 2021');
       });
 
     });
