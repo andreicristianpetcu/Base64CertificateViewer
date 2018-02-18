@@ -9,16 +9,16 @@
         expect(getCertificate(getLetsEncryptCertificate()).commonName).toBe('DST Root CA X3')
       });
 
-      xit('should have organization', function () {
-        expect(getCertificate(getLetsEncryptCertificate().organization)).toBe('Digital Signature Trust Co.');
+      it('should have organization', function () {
+        expect(getCertificate(getLetsEncryptCertificate()).organization).toBe('Digital Signature Trust Co.');
       });
 
       xit('should have issuer', function () {
-        expect(getCertificate(getLetsEncryptCertificate().issuer)).toBe('DST Root CA X3, Digital Signature Trust Co.');
+        expect(getCertificate(getLetsEncryptCertificate()).issuer).toBe('DST Root CA X3, Digital Signature Trust Co.');
       });
 
       xit('should have serial number', function () {
-        expect(getCertificate(getLetsEncryptCertificate().serialNumber)).toBe('44afb080d6a327ba893039862ef8406b');
+        expect(getCertificate(getLetsEncryptCertificate()).serialNumber).toBe('44afb080d6a327ba893039862ef8406b');
       });
 
     });
