@@ -1,20 +1,29 @@
-function getAttributeValueByName(allAttributes, attributeName){
+function getAttributeValueByName(allAttributes, attributeName) {
   var foundValue;
   allAttributes.forEach(attribute => {
-    if(attribute.name === attributeName){
+    if (attribute.name === attributeName) {
       foundValue = attribute.value;
     }
   });
   return foundValue;
 }
 
-function getUtcDate(date){
+function getUtcDate(date) {
   return JSON.stringify(date).split('"')[1];
 }
 
-function getCertificate (source) {
-  // var CertPEM = source.replace(/(-----(BEGIN|END) CERTIFICATE-----|\n)/g, '');
-  const caStore = forge.pki.createCaStore([source]);
+function cleanupCertificate(rawCertificate) {
+  rawCertificate = rawCertificate.replace(/(-----(BEGIN|END) CERTIFICATE-----|\n)/g, '');
+  rawCertificate = '-----BEGIN CERTIFICATE-----\n' + rawCertificate + '\n-----END CERTIFICATE-----';
+  return rawCertificate;
+}
+
+function getCertificate(source) {
+  console.log("parsing certificate\n" + source);
+  const base64Cert = cleanupCertificate(source);
+  console.log('cleaned certificate\n' + base64Cert);
+
+  const caStore = forge.pki.createCaStore([base64Cert]);
 
   const myCertificate = caStore.listAllCertificates()[0];
   // console.log(JSON.stringify(myCertificate.validity, null, 2));
@@ -32,7 +41,7 @@ function getCertificate (source) {
     validFrom: getUtcDate(myCertificate.validity.notBefore),
     validTo: getUtcDate(myCertificate.validity.notAfter)
   };
-  
+
   return certData;
 }
 
@@ -43,14 +52,15 @@ chrome.contextMenus.create({
 });
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
-  if (info.menuItemId == 'view-certificate') {
+  if (info.menuItemId === 'view-certificate') {
     const certificateData = getCertificate(info.selectionText);
 
     const certificateJsonData = JSON.stringify(certificateData, null, 2);
     console.log(certificateJsonData);
 
     var makeItGreen = 'alert(\'' + certificateJsonData + '\')';
-    chrome.tabs.executeScript({code: makeItGreen});
+    chrome.tabs.executeScript({
+      code: makeItGreen
+    });
   }
 });
-
