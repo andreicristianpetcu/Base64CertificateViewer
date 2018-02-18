@@ -21,12 +21,12 @@
         expect(getCertificate(getLetsEncryptCertificate()).serialNumber).toBe('44afb080d6a327ba893039862ef8406b');
       });
 
-      xit('should have valid from', function () {
-        expect(getCertificate(getLetsEncryptCertificate()).validFrom).toBe('September 30, 2000');
+      it('should have valid from', function () {
+        expect(getCertificate(getLetsEncryptCertificate()).validFrom).toBe('2000-09-30T21:12:19.000Z');
       });
 
-      xit('should have valid to', function () {
-        expect(getCertificate(getLetsEncryptCertificate()).validTo).toBe('September 30, 2021');
+      it('should have valid to', function () {
+        expect(getCertificate(getLetsEncryptCertificate()).validTo).toBe('2021-09-30T14:01:15.000Z');
       });
 
     });
