@@ -17,34 +17,34 @@ gulp.task('scripts', (cb) => {
       errorHandler () {}
     }))
     .pipe(named())
-    .pipe(gulpWebpack({
-      devtool: args.sourcemaps ? 'inline-source-map' : false,
-      watch: args.watch,
-      plugins: [
-        new webpack.DefinePlugin({
-          'process.env.NODE_ENV': JSON.stringify(ENV),
-          'process.env.VENDOR': JSON.stringify(args.vendor)
-        })
-      ].concat(args.production ? [
-        new webpack.optimize.UglifyJsPlugin()
-      ] : []),
-      module: {
-        rules: [{
-          test: /\.js$/,
-          loader: 'babel-loader'
-        }]
-      }
-    },
-    webpack,
-    (err, stats) => {
-      if (err) return
-      log(`Finished '${colors.cyan('scripts')}'`, stats.toString({
-        chunks: false,
-        colors: true,
-        cached: false,
-        children: false
-      }))
-    }))
+    // .pipe(gulpWebpack({
+    //   devtool: args.sourcemaps ? 'inline-source-map' : false,
+    //   watch: args.watch,
+    //   plugins: [
+    //     new webpack.DefinePlugin({
+    //       'process.env.NODE_ENV': JSON.stringify(ENV),
+    //       'process.env.VENDOR': JSON.stringify(args.vendor)
+    //     })
+    //   ].concat(args.production ? [
+    //     new webpack.optimize.UglifyJsPlugin()
+    //   ] : []),
+    //   module: {
+    //     rules: [{
+    //       test: /\.js$/,
+    //       loader: 'babel-loader'
+    //     }]
+    //   }
+    // },
+    // webpack,
+    // (err, stats) => {
+    //   if (err) return
+    //   log(`Finished '${colors.cyan('scripts')}'`, stats.toString({
+    //     chunks: false,
+    //     colors: true,
+    //     cached: false,
+    //     children: false
+    //   }))
+    // }))
     .pipe(gulp.dest(`dist/${args.vendor}/scripts`))
     .pipe(gulpif(args.watch, livereload()))
 })

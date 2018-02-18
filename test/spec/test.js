@@ -1,15 +1,14 @@
 (function () {
-  'use strict';
+  'use strict'
 
   describe('Tests certificate parser', function () {
-    it('should extract certificate issuer from simple PEM certificate', function() {
+    it('should extract certificate issuer from simple PEM certificate', function () {
+      expect(getCertificate(getLetsEncryptCertificate()).commonName).toBe('DST Root CA X3')
+    })
+  })
+})()
 
-      expect(getCertificate(getLetsEncryptCertificate()).commonName).toBe('DST Root CA X3');
-    });
-  });
-})();
-
-function getLetsEncryptCertificate(){
+function getLetsEncryptCertificate () {
   return `-----BEGIN CERTIFICATE-----
 MIIDSjCCAjKgAwIBAgIQRK+wgNajJ7qJMDmGLvhAazANBgkqhkiG9w0BAQUFADA/
 MSQwIgYDVQQKExtEaWdpdGFsIFNpZ25hdHVyZSBUcnVzdCBDby4xFzAVBgNVBAMT
@@ -29,10 +28,10 @@ AvHRAosZy5Q6XkjEGB5YGV8eAlrwDPGxrancWYaLbumR9YbK+rlmM6pZW87ipxZz
 R8srzJmwN0jP41ZL9c8PDHIyh8bwRLtTcm1D9SZImlJnt1ir/md2cXjbDaJWFBM5
 JDGFoqgCWjBH4d1QB7wCCZAA62RjYJsWvIjJEubSfZGL+T0yjWW06XyxV3bqxbYo
 Ob8VZRzI9neWagqNdwvYkQsEjgfbKbYK7p2CNTUQ
------END CERTIFICATE-----`;
+-----END CERTIFICATE-----`
 }
 
-function getLetsEncryptCertificateOriginal(){
+function getLetsEncryptCertificateOriginal () {
   return `-----BEGIN CERTIFICATE-----
 MIIDSjCCAjKgAwIBAgIQRK+wgNajJ7qJMDmGLvhAazANBgkqhkiG9w0BAQUFADA/
 MSQwIgYDVQQKExtEaWdpdGFsIFNpZ25hdHVyZSBUcnVzdCBDby4xFzAVBgNVBAMT
@@ -52,5 +51,5 @@ AvHRAosZy5Q6XkjEGB5YGV8eAlrwDPGxrancWYaLbumR9YbK+rlmM6pZW87ipxZz
 R8srzJmwN0jP41ZL9c8PDHIyh8bwRLtTcm1D9SZImlJnt1ir/md2cXjbDaJWFBM5
 JDGFoqgCWjBH4d1QB7wCCZAA62RjYJsWvIjJEubSfZGL+T0yjWW06XyxV3bqxbYo
 Ob8VZRzI9neWagqNdwvYkQsEjgfbKbYK7p2CNTUQ
------END CERTIFICATE-----`;
+-----END CERTIFICATE-----`
 }

@@ -12,6 +12,7 @@
   "background": {
     "scripts": [
       "scripts/forge.min.js",
+      "scripts/linker.js",
       "scripts/background.js"
     ]
   },
