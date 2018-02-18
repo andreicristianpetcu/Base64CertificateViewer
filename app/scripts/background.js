@@ -10,15 +10,22 @@ function getAttributeValueByName(allAttributes, attributeName){
 
 function getCertificate (source) {
   // var CertPEM = source.replace(/(-----(BEGIN|END) CERTIFICATE-----|\n)/g, '');
-  const caStore = forge.pki.createCaStore();
-  caStore.addCertificate(source);
+  const caStore = forge.pki.createCaStore([source]);
+
   const myCertificate = caStore.listAllCertificates()[0];
+
+  const subjectCommonName = getAttributeValueByName(myCertificate.subject.attributes, 'commonName');
+  const subjectOrganization = getAttributeValueByName(myCertificate.subject.attributes, 'organizationName');
+  const issuerCommonName = getAttributeValueByName(myCertificate.issuer.attributes, 'commonName');
+  const issuerOrganization = getAttributeValueByName(myCertificate.issuer.attributes, 'organizationName');
+
   const certData = {
-    commonName: getAttributeValueByName(myCertificate.subject.attributes, 'commonName'),
-    organization: getAttributeValueByName(myCertificate.subject.attributes, 'organizationName'),
+    commonName: subjectCommonName,
+    organization: subjectOrganization,
     serialNumber: myCertificate.serialNumber,
-    issuer: getAttributeValueByName(myCertificate.issuer.attributes, 'commonName') + ', ' + getAttributeValueByName(myCertificate.issuer.attributes, 'organizationName')
+    issuer: issuerCommonName + ', ' + issuerOrganization
   };
+  
   return certData;
 }
 
