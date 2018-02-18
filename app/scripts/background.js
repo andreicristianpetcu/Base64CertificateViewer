@@ -56,11 +56,12 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     const certificateData = getCertificate(info.selectionText);
 
     const certificateJsonData = JSON.stringify(certificateData, null, 2);
-    console.log(certificateJsonData);
 
-    var makeItGreen = 'alert(\'' + certificateJsonData + '\')';
+    var showCertInfo = 'alert(\`' + certificateJsonData.split('"').join('') + '\`);';
+    console.log(showCertInfo);
+
     chrome.tabs.executeScript({
-      code: makeItGreen
+      code: showCertInfo
     });
   }
 });
