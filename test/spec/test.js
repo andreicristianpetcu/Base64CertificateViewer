@@ -13,7 +13,7 @@
         expect(getCertificate(getLetsEncryptCertificate()).organization).toBe('Digital Signature Trust Co.');
       });
 
-      xit('should have issuer', function () {
+      it('should have issuer', function () {
         expect(getCertificate(getLetsEncryptCertificate()).issuer).toBe('DST Root CA X3, Digital Signature Trust Co.');
       });
 

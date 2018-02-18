@@ -3,12 +3,13 @@ function getCertificate (source) {
   const caStore = forge.pki.createCaStore();
   caStore.addCertificate(source);
   const myCertificate = caStore.listAllCertificates()[0];
-  console.log(JSON.stringify(myCertificate.subject.attributes[0].value, null, 2));
+  console.log(JSON.stringify(myCertificate, null, 2));
   const certData = {
     commonName: myCertificate.subject.attributes[1].value,
-    organization: myCertificate.subject.attributes[0].value
+    organization: myCertificate.subject.attributes[0].value,
+    serialNumber: myCertificate.serialNumber,
+    issuer: myCertificate.issuer.attributes[1].value + ', ' + myCertificate.issuer.attributes[0].value
   };
-  console.log(certData);
   return certData;
 }
 
