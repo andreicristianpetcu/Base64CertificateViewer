@@ -2,7 +2,7 @@
   "name": "__MSG_appName__",
   "short_name": "__MSG_appShortName__",
   "description": "__MSG_appDescription__",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "manifest_version": 2,
   "default_locale": "en",
   "icons": {
@@ -11,9 +11,7 @@
   },
   "background": {
     "scripts": [
-      "scripts/forge.min.js",
-      "scripts/linker.js",
-      "scripts/background.js"
+      "scripts/concatenated_background.js"
     ]
   },
   "permissions": [

@@ -42,6 +42,7 @@
     "gulp-bump": "2.x.x",
     "gulp-cache": "0.x.x",
     "gulp-clean-css": "^3.x.x",
+    "gulp-concat": "^2.6.1",
     "gulp-filter": "^5.x.x",
     "gulp-git": "^2.x.x",
     "gulp-if": "2.x.x",
