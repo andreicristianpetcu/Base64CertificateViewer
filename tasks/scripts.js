@@ -15,7 +15,10 @@ import args from './lib/args'
 const ENV = args.production ? 'production' : 'development'
 
 gulp.task('scripts', (cb) => {
-  return gulp.src('app/scripts/*.js')
+  return gulp.src([
+      'app/scripts/forge.min.js',
+      'app/scripts/background.js'
+    ])
     .pipe(plumber({
       errorHandler() {}
     }))

@@ -58,10 +58,37 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     const certificateJsonData = JSON.stringify(certificateData, null, 2);
 
     var showCertInfo = 'alert(\`' + certificateJsonData.split('"').join('') + '\`);';
+
     console.log(showCertInfo);
 
     chrome.tabs.executeScript({
       code: showCertInfo
     });
+
+
+    // browser.sidebarAction.setPanel({panel: 'data:text/html,lots of text...<p><a name%3D"bottom">bottom</a>?arg=val'});
+
+    // browser.sidebarAction.getPanel({}).then(function(panel){
+    //   console.log(panel);
+    // });
+
+    // browser.runtime.sendMessage({"url": 'value'});
+
+    // function handleResponse(message) {
+    //   console.log(`Message from the background script:  ${message.response}`);
+    // }
+    
+    // function handleError(error) {
+    //   console.log(`Error: ${error}`);
+    // }
+    
+    // var sending = browser.runtime.sendMessage({
+    //   greeting: "Greeting from the content script"
+    // });
+    // sending.then(handleResponse, handleError);  
+
+    // const myElement = document.getElementById("myElement");
+    // myElement.innerHTML = certificateJsonData.split('"').join('');
+
   }
 });

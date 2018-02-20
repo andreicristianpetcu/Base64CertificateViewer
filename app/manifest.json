@@ -7,12 +7,20 @@
   "default_locale": "en",
   "icons": {
     "16": "images/icon-16.png",
+    "19": "images/icon-19.png",
+    "38": "images/icon-38.png",
+    "48": "images/icon-48.png",
+    "96": "images/icon-96.png",
     "128": "images/icon-128.png"
   },
   "background": {
     "scripts": [
       "scripts/concatenated_background.js"
     ]
+  },
+  "sidebar_action": {
+    "default_title": "Certificate info",
+    "default_panel": "pages/sidebar.html"
   },
   "permissions": [
     "contextMenus",

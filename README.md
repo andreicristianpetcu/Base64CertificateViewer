@@ -69,8 +69,4 @@ if(process.env.NODE_ENV === 'development'){
 }
 ```
 
-
-
-
-
-
+The icon is based on Certificate By Karen Tyler https://thenounproject.com/search/?q=certificate&i=531027
