@@ -20,8 +20,6 @@
   },
   "permissions": [
     "contextMenus",
-    "tabs",
-    "activeTab",
-    "<all_urls>"
+    "activeTab"
   ]
 }
