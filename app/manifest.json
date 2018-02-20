@@ -18,10 +18,6 @@
       "scripts/concatenated_background.js"
     ]
   },
-  "sidebar_action": {
-    "default_title": "Certificate info",
-    "default_panel": "pages/sidebar.html"
-  },
   "permissions": [
     "contextMenus",
     "tabs",
