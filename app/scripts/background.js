@@ -19,27 +19,35 @@ function cleanupCertificate(rawCertificate) {
 }
 
 function getCertificate(source) {
-  console.log("parsing certificate\n" + source);
   const base64Cert = cleanupCertificate(source);
-  console.log('cleaned certificate\n' + base64Cert);
 
   const caStore = forge.pki.createCaStore([base64Cert]);
 
   const myCertificate = caStore.listAllCertificates()[0];
-  // console.log(JSON.stringify(myCertificate.validity, null, 2));
 
   const subjectCommonName = getAttributeValueByName(myCertificate.subject.attributes, 'commonName');
   const subjectOrganization = getAttributeValueByName(myCertificate.subject.attributes, 'organizationName');
   const issuerCommonName = getAttributeValueByName(myCertificate.issuer.attributes, 'commonName');
   const issuerOrganization = getAttributeValueByName(myCertificate.issuer.attributes, 'organizationName');
+  const issuer = issuerCommonName + ', ' + issuerOrganization;
+  const validFrom = getUtcDate(myCertificate.validity.notBefore);
+  const validTo = getUtcDate(myCertificate.validity.notAfter);
 
   const certData = {
     commonName: subjectCommonName,
     organization: subjectOrganization,
     serialNumber: myCertificate.serialNumber,
-    issuer: issuerCommonName + ', ' + issuerOrganization,
-    validFrom: getUtcDate(myCertificate.validity.notBefore),
-    validTo: getUtcDate(myCertificate.validity.notAfter)
+    issuer: issuer,
+    validFrom: validFrom,
+    validTo: validTo,
+    toString: function(){
+      return `Common name: ${subjectCommonName}
+Organization: ${subjectOrganization}
+Issuer: ${issuer}
+Serial Number: ${myCertificate.serialNumber}
+Valid From: ${validFrom}
+Valid To: ${validTo}`;
+    }
   };
 
   return certData;
@@ -51,44 +59,15 @@ chrome.contextMenus.create({
   contexts: ['selection']
 });
 
-chrome.contextMenus.onClicked.addListener(function (info, tab) {
+chrome.contextMenus.onClicked.addListener(function (info) {
   if (info.menuItemId === 'view-certificate') {
     const certificateData = getCertificate(info.selectionText);
 
-    const certificateJsonData = JSON.stringify(certificateData, null, 2);
-
-    var showCertInfo = 'alert(\`' + certificateJsonData.split('"').join('') + '\`);';
-
-    console.log(showCertInfo);
+    var showCertInfo = 'alert(\`' + certificateData.toString() + '\`);';
 
     chrome.tabs.executeScript({
       code: showCertInfo
     });
-
-
-    // browser.sidebarAction.setPanel({panel: 'data:text/html,lots of text...<p><a name%3D"bottom">bottom</a>?arg=val'});
-
-    // browser.sidebarAction.getPanel({}).then(function(panel){
-    //   console.log(panel);
-    // });
-
-    // browser.runtime.sendMessage({"url": 'value'});
-
-    // function handleResponse(message) {
-    //   console.log(`Message from the background script:  ${message.response}`);
-    // }
-    
-    // function handleError(error) {
-    //   console.log(`Error: ${error}`);
-    // }
-    
-    // var sending = browser.runtime.sendMessage({
-    //   greeting: "Greeting from the content script"
-    // });
-    // sending.then(handleResponse, handleError);  
-
-    // const myElement = document.getElementById("myElement");
-    // myElement.innerHTML = certificateJsonData.split('"').join('');
 
   }
 });
