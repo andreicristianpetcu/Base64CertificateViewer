@@ -8,7 +8,7 @@
     "description": "The short_name (maximum of 12 characters recommended) is a short version of the app's name."
   },
   "appDescription": {
-    "message": "Computers can read PEM encoded certificates. Hummans cannot. This extension might help. Try out on this page http://bit.ly/2oeUwEF Select the certificate, right click and 'Print certificate contents'. \nThe icon is based on Certificate By Karen Tyler https://thenounproject.com/search/?q=certificate&i=531027",
+    "message": "Computers can read PEM encoded certificates. Hummans cannot. This extension might help.",
     "description": "The description of the application"
   }
 }
