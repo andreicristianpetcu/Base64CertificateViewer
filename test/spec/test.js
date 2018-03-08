@@ -52,6 +52,21 @@ Valid To: 30 September 2021 [2021-09-30T14:01:15.000Z]`);
         expect(getCertificate(getOnelineCertificate()).commonName).toBe('mozilla.org');
       });
 
+      it('should parse oneline certificate with XML', function () {
+        const certWithXML = "<ds:X509Certificate>" + getOnelineCertificate() + "</ds:X509Certificate>";
+        expect(getCertificate(certWithXML).commonName).toBe('mozilla.org');
+      });
+
+      it('should parse oneline certificate added in a diff', function () {
+        const addedCert = "+      " + getOnelineCertificate();
+        expect(getCertificate(addedCert).commonName).toBe('mozilla.org');
+      });
+
+      it('should parse oneline certificate removed from a diff', function () {
+        const removedCert = "-      " + getOnelineCertificate();
+        expect(getCertificate(removedCert).commonName).toBe('mozilla.org');
+      });
+
     });
 
   });

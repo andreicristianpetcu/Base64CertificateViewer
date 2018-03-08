@@ -20,7 +20,21 @@ function getHumanReadableDate(utcDateAsString) {
   return date.getUTCDate() + " " + months[date.getUTCMonth()] + " " + date.getUTCFullYear();
 }
 
+function getCertificateFomXml(xmlContainingCertificate){
+  var xmlTagRegex = /(<([^>]+)>)/ig;
+  xmlContainingCertificate = xmlContainingCertificate.replace(xmlTagRegex, "");
+  return xmlContainingCertificate;
+}
+
 function cleanupCertificate(rawCertificate) {
+  if(rawCertificate.indexOf("</") > -1 && rawCertificate.indexOf(">") > -1){
+    rawCertificate = getCertificateFomXml(rawCertificate);
+  }
+
+  if(rawCertificate.indexOf("+    ") > -1 || rawCertificate.indexOf("-    ") > -1){
+    rawCertificate = rawCertificate.replace(/((\+|-)    )/g, '');
+  }
+
   rawCertificate = rawCertificate.replace(/(-----(BEGIN|END) CERTIFICATE-----|\n)/g, '');
   rawCertificate = '-----BEGIN CERTIFICATE-----\n' + rawCertificate + '\n-----END CERTIFICATE-----';
   return rawCertificate;
