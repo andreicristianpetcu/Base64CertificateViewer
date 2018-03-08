@@ -22,11 +22,15 @@
       });
 
       it('should have valid from', function () {
-        expect(getCertificate(getLetsEncryptCertificate()).validFrom).toBe('2000-09-30T21:12:19.000Z');
+        expect(getCertificate(getLetsEncryptCertificate()).validFrom).toContain('2000-09-30T21:12:19.000Z');
       });
 
       it('should have valid to', function () {
-        expect(getCertificate(getLetsEncryptCertificate()).validTo).toBe('2021-09-30T14:01:15.000Z');
+        expect(getCertificate(getLetsEncryptCertificate()).validTo).toContain('2021-09-30T14:01:15.000Z');
+      });
+
+      it('should have valid from', function () {
+        expect(getCertificate(getLetsEncryptCertificate()).validFrom).toBe('30 September 2000 [2000-09-30T21:12:19.000Z]');
       });
 
       it('should have nice string representation', function () {
@@ -35,8 +39,8 @@
 Organization: Digital Signature Trust Co.
 Issuer: DST Root CA X3, Digital Signature Trust Co.
 Serial Number: 44afb080d6a327ba893039862ef8406b
-Valid From: 2000-09-30T21:12:19.000Z
-Valid To: 2021-09-30T14:01:15.000Z`);
+Valid From: 30 September 2000 [2000-09-30T21:12:19.000Z]
+Valid To: 30 September 2021 [2021-09-30T14:01:15.000Z]`);
       });
 
 
