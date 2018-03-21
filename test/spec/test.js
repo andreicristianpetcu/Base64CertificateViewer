@@ -33,14 +33,19 @@
         expect(getCertificate(getLetsEncryptCertificate()).validFrom).toBe('30 September 2000 [2000-09-30T21:12:19.000Z]');
       });
 
-      it('should have nice string representation', function () {
-        expect(getCertificate(getLetsEncryptCertificate()).toString()).toBe(
-`Common name: DST Root CA X3
-Organization: Digital Signature Trust Co.
-Issuer: DST Root CA X3, Digital Signature Trust Co.
-Serial Number: 44afb080d6a327ba893039862ef8406b
-Valid From: 30 September 2000 [2000-09-30T21:12:19.000Z]
-Valid To: 30 September 2021 [2021-09-30T14:01:15.000Z]`);
+      xit('should have valid sha1 fingerprint', function () {
+        expect(getCertificate(getLetsEncryptCertificate()).sha1fingerprint).toBe('DAC9024F54D8F6DF94935FB1732638CA6AD77C13');
+      });
+
+      it('should have nice formated representation', function () {
+        const certificateFormatLines = getCertificate(getLetsEncryptCertificate()).toString().split('\n');
+
+        expect(certificateFormatLines[0]).toBe('Common name: DST Root CA X3');
+        expect(certificateFormatLines[1]).toBe('Organization: Digital Signature Trust Co.');
+        expect(certificateFormatLines[2]).toBe('Issuer: DST Root CA X3, Digital Signature Trust Co.');
+        expect(certificateFormatLines[3]).toBe('Serial Number: 44afb080d6a327ba893039862ef8406b');
+        expect(certificateFormatLines[4]).toBe('Valid From: 30 September 2000 [2000-09-30T21:12:19.000Z]');
+        expect(certificateFormatLines[5]).toBe('Valid To: 30 September 2021 [2021-09-30T14:01:15.000Z]');
       });
 
 

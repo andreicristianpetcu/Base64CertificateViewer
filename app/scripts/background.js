@@ -44,6 +44,17 @@ function getFullFormatedDate(dateAsString){
   return getHumanReadableDate(getUtcDate(dateAsString)) + " [" + getUtcDate(dateAsString) + "]";
 }
 
+function getSha1fingerprint(myCertificate){
+  var key = myCertificate.publicKey;
+  console.log(publicKey);
+  // console.log(JSON.stringify(myCertificate));
+  var md = forge.md.sha1.create();
+  md.update('The quick brown fox jumps over the lazy dog');
+  console.log(md.digest().toHex());
+  forge.pki.getPublicKeyFingerprint(key);
+  return md.digest().toHex().toUpperCase();
+}
+
 function getCertificate(source) {
   const base64Cert = cleanupCertificate(source);
 
@@ -58,6 +69,7 @@ function getCertificate(source) {
   const issuer = issuerCommonName + ', ' + issuerOrganization;
   const validFrom = getFullFormatedDate(myCertificate.validity.notBefore);
   const validTo = getFullFormatedDate(myCertificate.validity.notAfter);
+  const sha1fingerprint = "getSha1fingerprint(myCertificate)";
 
   const certData = {
     commonName: subjectCommonName,
@@ -66,13 +78,15 @@ function getCertificate(source) {
     issuer: issuer,
     validFrom: validFrom,
     validTo: validTo,
+    sha1fingerprint: sha1fingerprint,
     toString: function(){
       return `Common name: ${subjectCommonName}
 Organization: ${subjectOrganization}
 Issuer: ${issuer}
 Serial Number: ${myCertificate.serialNumber}
 Valid From: ${validFrom}
-Valid To: ${validTo}`;
+Valid To: ${validTo}
+SHA1 fingerprint: ${sha1fingerprint}`;
     }
   };
 
