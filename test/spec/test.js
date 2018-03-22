@@ -33,7 +33,7 @@
         expect(getCertificate(getLetsEncryptCertificate()).validFrom).toBe('30 September 2000 [2000-09-30T21:12:19.000Z]');
       });
 
-      xit('should have valid sha1 fingerprint', function () {
+      it('should have valid sha1 fingerprint', function () {
         expect(getCertificate(getLetsEncryptCertificate()).sha1fingerprint).toBe('DAC9024F54D8F6DF94935FB1732638CA6AD77C13');
       });
 

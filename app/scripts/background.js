@@ -45,13 +45,10 @@ function getFullFormatedDate(dateAsString){
 }
 
 function getSha1fingerprint(myCertificate){
-  var key = myCertificate.publicKey;
-  console.log(publicKey);
-  // console.log(JSON.stringify(myCertificate));
+  var asn1 = forge.pki.certificateToAsn1(myCertificate);
+  var der = forge.asn1.toDer(asn1);
   var md = forge.md.sha1.create();
-  md.update('The quick brown fox jumps over the lazy dog');
-  console.log(md.digest().toHex());
-  forge.pki.getPublicKeyFingerprint(key);
+  md.update(der.data);
   return md.digest().toHex().toUpperCase();
 }
 
@@ -69,7 +66,7 @@ function getCertificate(source) {
   const issuer = issuerCommonName + ', ' + issuerOrganization;
   const validFrom = getFullFormatedDate(myCertificate.validity.notBefore);
   const validTo = getFullFormatedDate(myCertificate.validity.notAfter);
-  const sha1fingerprint = "getSha1fingerprint(myCertificate)";
+  const sha1fingerprint = getSha1fingerprint(myCertificate);
 
   const certData = {
     commonName: subjectCommonName,
