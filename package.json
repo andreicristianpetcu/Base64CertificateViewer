@@ -1,7 +1,7 @@
 {
   "name": "base64-certificate-viewer",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "You can see the details of certificates.",
   "scripts": {
     "start": "npm run dev:chrome",
