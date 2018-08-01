@@ -52,6 +52,14 @@ function getSha1fingerprint(myCertificate){
   return md.digest().toHex().toUpperCase();
 }
 
+function getSha2fingerprint(myCertificate){
+  var asn1 = forge.pki.certificateToAsn1(myCertificate);
+  var der = forge.asn1.toDer(asn1);
+  var md = forge.md.sha256.create();
+  md.update(der.data);
+  return md.digest().toHex().toUpperCase();
+}
+
 function getCertificate(source) {
   const base64Cert = cleanupCertificate(source);
 
@@ -67,6 +75,7 @@ function getCertificate(source) {
   const validFrom = getFullFormatedDate(myCertificate.validity.notBefore);
   const validTo = getFullFormatedDate(myCertificate.validity.notAfter);
   const sha1fingerprint = getSha1fingerprint(myCertificate);
+  const sha2fingerprint = getSha2fingerprint(myCertificate);
 
   const certData = {
     commonName: subjectCommonName,
@@ -76,6 +85,7 @@ function getCertificate(source) {
     validFrom: validFrom,
     validTo: validTo,
     sha1fingerprint: sha1fingerprint,
+    sha2fingerprint: sha2fingerprint,
     toString: function(){
       return `Common name: ${subjectCommonName}
 Organization: ${subjectOrganization}
