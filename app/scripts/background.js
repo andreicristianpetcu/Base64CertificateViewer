@@ -44,18 +44,10 @@ function getFullFormatedDate(dateAsString){
   return getHumanReadableDate(getUtcDate(dateAsString)) + " [" + getUtcDate(dateAsString) + "]";
 }
 
-function getSha1fingerprint(myCertificate){
+function getShaFingerprint(myCertificate, hashAlgorithm){
   var asn1 = forge.pki.certificateToAsn1(myCertificate);
   var der = forge.asn1.toDer(asn1);
-  var md = forge.md.sha1.create();
-  md.update(der.data);
-  return md.digest().toHex().toUpperCase();
-}
-
-function getSha2fingerprint(myCertificate){
-  var asn1 = forge.pki.certificateToAsn1(myCertificate);
-  var der = forge.asn1.toDer(asn1);
-  var md = forge.md.sha256.create();
+  var md = forge.md[hashAlgorithm].create();
   md.update(der.data);
   return md.digest().toHex().toUpperCase();
 }
@@ -74,8 +66,8 @@ function getCertificate(source) {
   const issuer = issuerCommonName + ', ' + issuerOrganization;
   const validFrom = getFullFormatedDate(myCertificate.validity.notBefore);
   const validTo = getFullFormatedDate(myCertificate.validity.notAfter);
-  const sha1fingerprint = getSha1fingerprint(myCertificate);
-  const sha2fingerprint = getSha2fingerprint(myCertificate);
+  const sha1fingerprint = getShaFingerprint(myCertificate, 'sha1');
+  const sha256fingerprint = getShaFingerprint(myCertificate, 'sha256');
 
   const certData = {
     commonName: subjectCommonName,
@@ -85,7 +77,7 @@ function getCertificate(source) {
     validFrom: validFrom,
     validTo: validTo,
     sha1fingerprint: sha1fingerprint,
-    sha2fingerprint: sha2fingerprint,
+    sha256fingerprint: sha256fingerprint,
     toString: function(){
       return `Common name: ${subjectCommonName}
 Organization: ${subjectOrganization}
@@ -93,7 +85,8 @@ Issuer: ${issuer}
 Serial Number: ${myCertificate.serialNumber}
 Valid From: ${validFrom}
 Valid To: ${validTo}
-SHA1 fingerprint: ${sha1fingerprint}`;
+SHA1: ${sha1fingerprint}
+SHA256: ${sha256fingerprint}`;
     }
   };
 
