@@ -2,6 +2,10 @@
 
 You can see the details of certificates.
 
+[Firefox](https://addons.mozilla.org/en-US/firefox/addon/certificate-viewer-for-humans/)
+
+[Chrome](https://chrome.google.com/webstore/detail/fkahpjlecgjpojmkondflnfcdikppklf)
+
 ## Installation
 
 	$ npm install
