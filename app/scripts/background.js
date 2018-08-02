@@ -111,3 +111,7 @@ chrome.contextMenus.onClicked.addListener(function (info) {
 
   }
 });
+
+// browser.tabs.create({
+//   url: `/pages/certificate_details.html`,
+// });

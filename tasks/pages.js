@@ -4,7 +4,7 @@ import livereload from 'gulp-livereload'
 import args from './lib/args'
 
 gulp.task('pages', () => {
-  return gulp.src('app/pages/**/*.html')
+  return gulp.src([ 'app/pages/**/*.html', 'app/pages/**/*.js'])
     .pipe(gulp.dest(`dist/${args.vendor}/pages`))
     .pipe(gulpif(args.watch, livereload()))
 })
