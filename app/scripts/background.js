@@ -1,4 +1,3 @@
-
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 function getAttributeValueByName(allAttributes, attributeName) {
@@ -20,18 +19,18 @@ function getHumanReadableDate(utcDateAsString) {
   return date.getUTCDate() + " " + months[date.getUTCMonth()] + " " + date.getUTCFullYear();
 }
 
-function getCertificateFomXml(xmlContainingCertificate){
+function getCertificateFomXml(xmlContainingCertificate) {
   var xmlTagRegex = /(<([^>]+)>)/ig;
   xmlContainingCertificate = xmlContainingCertificate.replace(xmlTagRegex, "");
   return xmlContainingCertificate;
 }
 
 function cleanupCertificate(rawCertificate) {
-  if(rawCertificate.indexOf("</") > -1 && rawCertificate.indexOf(">") > -1){
+  if (rawCertificate.indexOf("</") > -1 && rawCertificate.indexOf(">") > -1) {
     rawCertificate = getCertificateFomXml(rawCertificate);
   }
 
-  if(rawCertificate.indexOf("+    ") > -1 || rawCertificate.indexOf("-    ") > -1){
+  if (rawCertificate.indexOf("+    ") > -1 || rawCertificate.indexOf("-    ") > -1) {
     rawCertificate = rawCertificate.replace(/((\+|-)    )/g, '');
   }
 
@@ -40,11 +39,11 @@ function cleanupCertificate(rawCertificate) {
   return rawCertificate;
 }
 
-function getFullFormatedDate(dateAsString){
+function getFullFormatedDate(dateAsString) {
   return getHumanReadableDate(getUtcDate(dateAsString)) + " [" + getUtcDate(dateAsString) + "]";
 }
 
-function getShaFingerprint(myCertificate, hashAlgorithm){
+function getShaFingerprint(myCertificate, hashAlgorithm) {
   var asn1 = forge.pki.certificateToAsn1(myCertificate);
   var der = forge.asn1.toDer(asn1);
   var md = forge.md[hashAlgorithm].create();
@@ -78,7 +77,7 @@ function getCertificate(source) {
     validTo: validTo,
     sha1fingerprint: sha1fingerprint,
     sha256fingerprint: sha256fingerprint,
-    toString: function(){
+    toString: function () {
       return `Common name: ${subjectCommonName}
 Organization: ${subjectOrganization}
 Issuer: ${issuer}
@@ -111,6 +110,16 @@ chrome.contextMenus.onClicked.addListener(function (info) {
 
   }
 });
+
+
+// function handleMessage(request, sender, sendResponse) {
+//   console.log(`content script sent a message: ${request.content}`);
+//   sendResponse({
+//     response: "response from background script"
+//   });
+// }
+
+// browser.runtime.onMessage.addListener(handleMessage);
 
 // browser.tabs.create({
 //   url: `/pages/certificate_details.html`,
