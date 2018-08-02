@@ -111,7 +111,6 @@ chrome.contextMenus.onClicked.addListener(function (info) {
   }
 });
 
-
 // function handleMessage(request, sender, sendResponse) {
 //   console.log(`content script sent a message: ${request.content}`);
 //   sendResponse({
@@ -119,8 +118,12 @@ chrome.contextMenus.onClicked.addListener(function (info) {
 //   });
 // }
 
-// browser.runtime.onMessage.addListener(handleMessage);
+// chrome.runtime.onMessage.addListener(handleMessage);
 
-// browser.tabs.create({
+// chrome.tabs.create({
 //   url: `/pages/certificate_details.html`,
 // });
+
+if(global){
+  global.getCertificate = getCertificate;
+}
