@@ -80,9 +80,11 @@
 
     });
 
-    xdescribe('opening certificate details page', function () {
-      it('should ask for the correct certificate by id', function () {
-        document.body.innerHTML = window.__html__['/app/pages/certificate_details.html'];
+    describe('opening certificate details page', function () {
+      it('should have the correct title', function () {
+        document.body.innerHTML = window.__html__['app/pages/certificate_details.html'];
+
+        expect(document.querySelector('h1').textContent).toBe('Certificate details');
       });
     });
   });

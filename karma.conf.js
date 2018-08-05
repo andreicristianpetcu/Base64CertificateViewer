@@ -16,8 +16,10 @@ module.exports = function (config) {
         'test/test_initializer.js': ['webpack'],
         'app/scripts/**/*.js': ['webpack', 'coverage'],
         'app/pages/**/*.js': ['webpack', 'coverage'],
-        'test/spec/**/*.js': ['webpack']
+        'test/spec/**/*.js': ['webpack'],
+        'app/pages/*.html': ['html2js']
     },
+
     babelPreprocessor: {
       options: {
         presets: ['env'],
