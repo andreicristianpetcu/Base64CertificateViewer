@@ -28,3 +28,12 @@
 // }
 
 // sendMessage();
+
+function initCertDetails() {
+  console.log('Initializing cert details');
+  document.querySelector('h1').textContent = 'Certificate details';
+}
+
+if (global) {
+  global.initCertDetails = initCertDetails;
+}

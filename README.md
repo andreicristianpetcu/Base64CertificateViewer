@@ -10,6 +10,15 @@ You can see the details of certificates.
 
 	$ npm install
 
+## Run tests
+    $ npm run test:watch
+
+    or with desktop for debugging
+
+    $ npm run test:watch
+
+
+
 ## Usage
 
 Run `$ gulp --watch` and load the `dist`-directory into chrome.

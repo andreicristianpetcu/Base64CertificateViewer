@@ -80,9 +80,11 @@
 
     });
 
-    describe('opening certificate details page', function () {
+    fdescribe('opening certificate details page', function () {
       it('should have the correct title', function () {
         document.body.innerHTML = window.__html__['app/pages/certificate_details.html'];
+
+        initCertDetails();
 
         expect(document.querySelector('h1').textContent).toBe('Certificate details');
       });
