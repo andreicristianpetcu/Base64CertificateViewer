@@ -8,3 +8,4 @@ browser = chrome;
 global.forge = forge;
 
 browser.runtime.sendMessage = sinon.spy();
+browser.runtime.onMessage.addListener = sinon.spy();
