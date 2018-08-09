@@ -117,6 +117,12 @@
         expect(detailsListItems[6].textContent).toBe('SHA1: DAC9024F54D8F6DF94935FB1732638CA6AD77C13');
         expect(detailsListItems[7].textContent).toBe('SHA256: 0687260331A72403D909F105E69BCF0D32E1BD2493FFC6D9206D11BCD6770739');
       });
+
+      it('should request the certificate on load', function(){
+        assert.ok(browser.runtime.sendMessage.withArgs({
+            type: "REQUEST_CERTIFICATE"
+        }).calledOnce, 'should request certificate on startup');
+      });
     });
   });
 })();

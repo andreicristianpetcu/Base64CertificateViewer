@@ -3,7 +3,8 @@ const forge = require('node-forge');
 
 global.chrome = chrome;
 global.browser = chrome;
-window.chrome = chrome;
-window.browser = chrome;
+browser = chrome;
 
 global.forge = forge;
+
+browser.runtime.sendMessage = sinon.spy();

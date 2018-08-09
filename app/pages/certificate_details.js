@@ -19,6 +19,8 @@ function populateCertificate(certificateData){
 
 }
 
+browser.runtime.sendMessage({type: "REQUEST_CERTIFICATE"});
+
 if (global) {
   global.populateCertificate = populateCertificate;
 }
