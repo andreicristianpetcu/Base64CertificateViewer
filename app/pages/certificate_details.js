@@ -1,11 +1,22 @@
+function appendItemToList(itemText, list){
+    var entry = document.createElement('li');
+    entry.appendChild(document.createTextNode(itemText));
+    list.appendChild(entry);
+}
+
 function populateCertificate(certificateData){
     content = document.querySelector('#certificateDetails ul');
     content.innerHTML = '';
 
-    var entry = document.createElement('li');
+    appendItemToList('Common name: ' + certificateData.commonName, content);
+    appendItemToList('Organization: ' + certificateData.organization, content);
+    appendItemToList('Issuer: ' + certificateData.issuer, content);
+    appendItemToList('Serial Number: ' + certificateData.serialNumber, content);
+    appendItemToList('Valid From: ' + certificateData.validFrom, content);
+    appendItemToList('Valid To: ' + certificateData.validTo, content);
+    appendItemToList('SHA1: ' + certificateData.sha1fingerprint, content);
+    appendItemToList('SHA256: ' + certificateData.sha256fingerprint, content);
 
-    entry.appendChild(document.createTextNode('Common name: ' + certificateData.commonName));
-    content.appendChild(entry);
 }
 
 if (global) {

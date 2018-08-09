@@ -93,7 +93,7 @@
         expect(detailsListItems[0].textContent).toBe('Common name: DST Root CA X3');
       });
 
-      xit('should have the correct fields', function () {
+      it('should have the correct fields', function () {
         document.body.innerHTML = window.__html__['app/pages/certificate_details.html'];
 
         populateCertificate({
@@ -109,7 +109,6 @@
 
         const detailsListItems = document.querySelectorAll('#certificateDetails ul li');
 
-        expect(detailsListItems[0].textContent).toBe('Common name: DST Root CA X3');
         expect(detailsListItems[1].textContent).toBe('Organization: Digital Signature Trust Co.');
         expect(detailsListItems[2].textContent).toBe('Issuer: DST Root CA X3, Digital Signature Trust Co.');
         expect(detailsListItems[3].textContent).toBe('Serial Number: 44afb080d6a327ba893039862ef8406b');
