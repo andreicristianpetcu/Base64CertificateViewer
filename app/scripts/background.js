@@ -117,6 +117,6 @@ chrome.contextMenus.onClicked.addListener(function (info) {
   }
 });
 
-if (global) {
+if (typeof global !== "undefined") {
   global.getCertificate = getCertificate;
 }
