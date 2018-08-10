@@ -98,14 +98,16 @@ chrome.contextMenus.create({
   contexts: ['selection']
 });
 
+var certificateData;
+var selectionText;
+
 chrome.contextMenus.onClicked.addListener(function (info) {
   if (info.menuItemId === 'view-certificate') {
-    const certificateData = getCertificate(info.selectionText);
+    selectionText = info.selectionText;
+    // certificateData = getCertificate(info.selectionText);
 
-    var showCertInfo = 'alert(\`' + certificateData.toString() + '\`);';
-
-    chrome.tabs.executeScript({
-      code: showCertInfo
+    chrome.tabs.create({
+      url: `/pages/certificate_details.html`,
     });
 
   }
@@ -120,10 +122,6 @@ chrome.contextMenus.onClicked.addListener(function (info) {
 
 // chrome.runtime.onMessage.addListener(handleMessage);
 
-// chrome.tabs.create({
-//   url: `/pages/certificate_details.html`,
-// });
-
-if(global){
+if (global) {
   global.getCertificate = getCertificate;
 }

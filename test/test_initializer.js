@@ -9,3 +9,5 @@ global.forge = forge;
 
 browser.runtime.sendMessage = sinon.spy();
 browser.runtime.onMessage.addListener = sinon.spy();
+browser.contextMenus.onClicked.addListener = sinon.spy();
+browser.tabs.create = sinon.spy();
