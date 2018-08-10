@@ -98,13 +98,17 @@ chrome.contextMenus.create({
   contexts: ['selection']
 });
 
-var certificateData;
 var selectionText;
+
+function handleMessage(request, sender, sendResponse) {
+  const certificateData = getCertificate(selectionText);
+  sendResponse(certificateData);
+}
+chrome.runtime.onMessage.addListener(handleMessage);
 
 chrome.contextMenus.onClicked.addListener(function (info) {
   if (info.menuItemId === 'view-certificate') {
     selectionText = info.selectionText;
-    // certificateData = getCertificate(info.selectionText);
 
     chrome.tabs.create({
       url: `/pages/certificate_details.html`,
@@ -112,15 +116,6 @@ chrome.contextMenus.onClicked.addListener(function (info) {
 
   }
 });
-
-// function handleMessage(request, sender, sendResponse) {
-//   console.log(`content script sent a message: ${request.content}`);
-//   sendResponse({
-//     response: "response from background script"
-//   });
-// }
-
-// chrome.runtime.onMessage.addListener(handleMessage);
 
 if (global) {
   global.getCertificate = getCertificate;
