@@ -4,7 +4,7 @@ module.exports = function (config) {
       'test/test_initializer.js',
       'app/scripts/forge.min.js',
       'app/scripts/background.js',
-      'test/**/*.js',
+      'test/**/*.spec.js',
       'app/pages/*.html',
       'app/pages/*.js',
     ],
@@ -16,7 +16,7 @@ module.exports = function (config) {
         'test/test_initializer.js': ['webpack'],
         'app/scripts/**/*.js': ['webpack', 'coverage'],
         'app/pages/**/*.js': ['webpack', 'coverage'],
-        'test/spec/**/*.js': ['webpack'],
+        'test/spec/**/*.spec.js': ['webpack'],
         'app/pages/*.html': ['html2js']
     },
 
