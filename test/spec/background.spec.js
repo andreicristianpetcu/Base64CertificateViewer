@@ -1,173 +1,121 @@
 (function () {
   'use strict'
 
-  describe('Tests certificate parser', function () {
+  describe('background listeners', function () {
 
-    describe('background listeners', function () {
+    it('should have a click listener', function () {
+      var contextMenusClickedListener = chrome.contextMenus.onClicked.addListener.getCall(0).args[0];
 
-      it('should have a click listener', function () {
-        var contextMenusClickedListener = chrome.contextMenus.onClicked.addListener.getCall(0).args[0];
-
-        contextMenusClickedListener({
-          menuItemId: 'view-certificate'
-        });
-
-        assert.ok(browser.tabs.create.withArgs({
-          url: `/pages/certificate_details.html`,
-        }).calledOnce, 'should open a new tab with certificate details');
-
+      contextMenusClickedListener({
+        menuItemId: 'view-certificate'
       });
 
-      it('should send certificate details when asked', function () {
-        var contextMenusClickedListener = chrome.contextMenus.onClicked.addListener.getCall(0).args[0];
-        contextMenusClickedListener({
-          menuItemId: 'view-certificate',
-          selectionText: getLetsEncryptCertificate()
-        });
-        var backgroundMessageListener = chrome.runtime.onMessage.addListener.getCall(0).args[0];
-        var sendResponseSpy = sinon.spy();
-        backgroundMessageListener({
-          type: "REQUEST_CERTIFICATE"
-        }, '', sendResponseSpy);
-
-        const actualCertificateDetails = sendResponseSpy.getCall(0).args[0];
-        expect(actualCertificateDetails.commonName).toEqual("DST Root CA X3");
-        expect(actualCertificateDetails.organization).toEqual("Digital Signature Trust Co.");
-        expect(actualCertificateDetails.serialNumber).toEqual("44afb080d6a327ba893039862ef8406b");
-        expect(actualCertificateDetails.issuer).toEqual("DST Root CA X3, Digital Signature Trust Co.");
-        expect(actualCertificateDetails.validFrom).toEqual("30 September 2000 [2000-09-30T21:12:19.000Z]");
-        expect(actualCertificateDetails.validTo).toEqual("30 September 2021 [2021-09-30T14:01:15.000Z]");
-        expect(actualCertificateDetails.sha1fingerprint).toEqual("DAC9024F54D8F6DF94935FB1732638CA6AD77C13");
-        expect(actualCertificateDetails.sha256fingerprint).toEqual("0687260331A72403D909F105E69BCF0D32E1BD2493FFC6D9206D11BCD6770739");
-      });
+      assert.ok(browser.tabs.create.withArgs({
+        url: `/pages/certificate_details.html`,
+      }).calledOnce, 'should open a new tab with certificate details');
 
     });
 
-    describe('with correct certificate fields from PEM file', function () {
-
-      it('should have commonName', function () {
-        expect(getCertificate(getLetsEncryptCertificate()).commonName).toBe('DST Root CA X3');
+    it('should send certificate details when asked', function () {
+      var contextMenusClickedListener = chrome.contextMenus.onClicked.addListener.getCall(0).args[0];
+      contextMenusClickedListener({
+        menuItemId: 'view-certificate',
+        selectionText: getLetsEncryptCertificate()
       });
+      var backgroundMessageListener = chrome.runtime.onMessage.addListener.getCall(0).args[0];
+      var sendResponseSpy = sinon.spy();
+      backgroundMessageListener({
+        type: "REQUEST_CERTIFICATE"
+      }, '', sendResponseSpy);
 
-      it('should have organization', function () {
-        expect(getCertificate(getLetsEncryptCertificate()).organization).toBe('Digital Signature Trust Co.');
-      });
-
-      it('should have issuer', function () {
-        expect(getCertificate(getLetsEncryptCertificate()).issuer).toBe('DST Root CA X3, Digital Signature Trust Co.');
-      });
-
-      it('should have serial number', function () {
-        expect(getCertificate(getLetsEncryptCertificate()).serialNumber).toBe('44afb080d6a327ba893039862ef8406b');
-      });
-
-      it('should have valid from', function () {
-        expect(getCertificate(getLetsEncryptCertificate()).validFrom).toContain('2000-09-30T21:12:19.000Z');
-      });
-
-      it('should have valid to', function () {
-        expect(getCertificate(getLetsEncryptCertificate()).validTo).toContain('2021-09-30T14:01:15.000Z');
-      });
-
-      it('should have valid from', function () {
-        expect(getCertificate(getLetsEncryptCertificate()).validFrom).toBe('30 September 2000 [2000-09-30T21:12:19.000Z]');
-      });
-
-      it('should have valid sha1 fingerprint', function () {
-        expect(getCertificate(getLetsEncryptCertificate()).sha1fingerprint).toBe('DAC9024F54D8F6DF94935FB1732638CA6AD77C13');
-      });
-
-      it('should have valid sha256 fingerprint', function () {
-        expect(getCertificate(getLetsEncryptCertificate()).sha256fingerprint)
-          .toBe('0687260331A72403D909F105E69BCF0D32E1BD2493FFC6D9206D11BCD6770739');
-      });
-
-      it('should have nice formated representation', function () {
-        const certificateFormatLines = getCertificate(getLetsEncryptCertificate()).toString().split('\n');
-
-        expect(certificateFormatLines[0]).toBe('Common name: DST Root CA X3');
-        expect(certificateFormatLines[1]).toBe('Organization: Digital Signature Trust Co.');
-        expect(certificateFormatLines[2]).toBe('Issuer: DST Root CA X3, Digital Signature Trust Co.');
-        expect(certificateFormatLines[3]).toBe('Serial Number: 44afb080d6a327ba893039862ef8406b');
-        expect(certificateFormatLines[4]).toBe('Valid From: 30 September 2000 [2000-09-30T21:12:19.000Z]');
-        expect(certificateFormatLines[5]).toBe('Valid To: 30 September 2021 [2021-09-30T14:01:15.000Z]');
-        expect(certificateFormatLines[6]).toBe('SHA1: DAC9024F54D8F6DF94935FB1732638CA6AD77C13');
-        expect(certificateFormatLines[7]).toBe('SHA256: 0687260331A72403D909F105E69BCF0D32E1BD2493FFC6D9206D11BCD6770739');
-      });
-
+      const actualCertificateDetails = sendResponseSpy.getCall(0).args[0];
+      expect(actualCertificateDetails.commonName).toEqual("DST Root CA X3");
+      expect(actualCertificateDetails.organization).toEqual("Digital Signature Trust Co.");
+      expect(actualCertificateDetails.serialNumber).toEqual("44afb080d6a327ba893039862ef8406b");
+      expect(actualCertificateDetails.issuer).toEqual("DST Root CA X3, Digital Signature Trust Co.");
+      expect(actualCertificateDetails.validFrom).toEqual("30 September 2000 [2000-09-30T21:12:19.000Z]");
+      expect(actualCertificateDetails.validTo).toEqual("30 September 2021 [2021-09-30T14:01:15.000Z]");
+      expect(actualCertificateDetails.sha1fingerprint).toEqual("DAC9024F54D8F6DF94935FB1732638CA6AD77C13");
+      expect(actualCertificateDetails.sha256fingerprint).toEqual("0687260331A72403D909F105E69BCF0D32E1BD2493FFC6D9206D11BCD6770739");
     });
 
-    describe('with incorrect certificate', function () {
+  });
 
-      it('should parse oneline certificate', function () {
-        expect(getCertificate(getOnelineCertificate()).commonName).toBe('mozilla.org');
-      });
+  describe('with correct certificate fields from PEM file', function () {
 
-      it('should parse oneline certificate with XML', function () {
-        const certWithXML = "<ds:X509Certificate>" + getOnelineCertificate() + "</ds:X509Certificate>";
-        expect(getCertificate(certWithXML).commonName).toBe('mozilla.org');
-      });
-
-      it('should parse oneline certificate added in a diff', function () {
-        const addedCert = "+      " + getOnelineCertificate();
-        expect(getCertificate(addedCert).commonName).toBe('mozilla.org');
-      });
-
-      it('should parse oneline certificate removed from a diff', function () {
-        const removedCert = "-      " + getOnelineCertificate();
-        expect(getCertificate(removedCert).commonName).toBe('mozilla.org');
-      });
-
+    it('should have commonName', function () {
+      expect(getCertificate(getLetsEncryptCertificate()).commonName).toBe('DST Root CA X3');
     });
 
-    describe('opening certificate details page', function () {
-
-      it('should have the correct common name', async function () {
-        document.body.innerHTML = window.__html__['app/pages/certificate_details.html'];
-        chrome.runtime.sendMessage.callsFake(function (message, callback) {
-          if (message.type === 'REQUEST_CERTIFICATE') {
-            callback({
-              commonName: "DST Root CA X3",
-            });
-          }
-        });
-
-        await init(document);
-
-        const detailsListItems = document.querySelectorAll('#certificateDetails ul li');
-        expect(detailsListItems[0].textContent).toBe('Common name: DST Root CA X3');
-      });
-
-      it('should have the correct fields', async function () {
-        document.body.innerHTML = window.__html__['app/pages/certificate_details.html'];
-        chrome.runtime.sendMessage.callsFake(function (message, callback) {
-          if (message.type === 'REQUEST_CERTIFICATE') {
-            callback({
-              commonName: "DST Root CA X3",
-              organization: "Digital Signature Trust Co.",
-              serialNumber: "44afb080d6a327ba893039862ef8406b",
-              issuer: "DST Root CA X3, Digital Signature Trust Co.",
-              validFrom: "30 September 2000 [2000-09-30T21:12:19.000Z]",
-              validTo: "30 September 2021 [2021-09-30T14:01:15.000Z]",
-              sha1fingerprint: "DAC9024F54D8F6DF94935FB1732638CA6AD77C13",
-              sha256fingerprint: "0687260331A72403D909F105E69BCF0D32E1BD2493FFC6D9206D11BCD6770739",
-            });
-          }
-        });
-
-        await init(document);
-
-        const detailsListItems = document.querySelectorAll('#certificateDetails ul li');
-        expect(detailsListItems[1].textContent).toBe('Organization: Digital Signature Trust Co.');
-        expect(detailsListItems[2].textContent).toBe('Issuer: DST Root CA X3, Digital Signature Trust Co.');
-        expect(detailsListItems[3].textContent).toBe('Serial Number: 44afb080d6a327ba893039862ef8406b');
-        expect(detailsListItems[4].textContent).toBe('Valid From: 30 September 2000 [2000-09-30T21:12:19.000Z]');
-        expect(detailsListItems[5].textContent).toBe('Valid To: 30 September 2021 [2021-09-30T14:01:15.000Z]');
-        expect(detailsListItems[6].textContent).toBe('SHA1: DAC9024F54D8F6DF94935FB1732638CA6AD77C13');
-        expect(detailsListItems[7].textContent).toBe('SHA256: 0687260331A72403D909F105E69BCF0D32E1BD2493FFC6D9206D11BCD6770739');
-      });
-
+    it('should have organization', function () {
+      expect(getCertificate(getLetsEncryptCertificate()).organization).toBe('Digital Signature Trust Co.');
     });
+
+    it('should have issuer', function () {
+      expect(getCertificate(getLetsEncryptCertificate()).issuer).toBe('DST Root CA X3, Digital Signature Trust Co.');
+    });
+
+    it('should have serial number', function () {
+      expect(getCertificate(getLetsEncryptCertificate()).serialNumber).toBe('44afb080d6a327ba893039862ef8406b');
+    });
+
+    it('should have valid from', function () {
+      expect(getCertificate(getLetsEncryptCertificate()).validFrom).toContain('2000-09-30T21:12:19.000Z');
+    });
+
+    it('should have valid to', function () {
+      expect(getCertificate(getLetsEncryptCertificate()).validTo).toContain('2021-09-30T14:01:15.000Z');
+    });
+
+    it('should have valid from', function () {
+      expect(getCertificate(getLetsEncryptCertificate()).validFrom).toBe('30 September 2000 [2000-09-30T21:12:19.000Z]');
+    });
+
+    it('should have valid sha1 fingerprint', function () {
+      expect(getCertificate(getLetsEncryptCertificate()).sha1fingerprint).toBe('DAC9024F54D8F6DF94935FB1732638CA6AD77C13');
+    });
+
+    it('should have valid sha256 fingerprint', function () {
+      expect(getCertificate(getLetsEncryptCertificate()).sha256fingerprint)
+        .toBe('0687260331A72403D909F105E69BCF0D32E1BD2493FFC6D9206D11BCD6770739');
+    });
+
+    it('should have nice formated representation', function () {
+      const certificateFormatLines = getCertificate(getLetsEncryptCertificate()).toString().split('\n');
+
+      expect(certificateFormatLines[0]).toBe('Common name: DST Root CA X3');
+      expect(certificateFormatLines[1]).toBe('Organization: Digital Signature Trust Co.');
+      expect(certificateFormatLines[2]).toBe('Issuer: DST Root CA X3, Digital Signature Trust Co.');
+      expect(certificateFormatLines[3]).toBe('Serial Number: 44afb080d6a327ba893039862ef8406b');
+      expect(certificateFormatLines[4]).toBe('Valid From: 30 September 2000 [2000-09-30T21:12:19.000Z]');
+      expect(certificateFormatLines[5]).toBe('Valid To: 30 September 2021 [2021-09-30T14:01:15.000Z]');
+      expect(certificateFormatLines[6]).toBe('SHA1: DAC9024F54D8F6DF94935FB1732638CA6AD77C13');
+      expect(certificateFormatLines[7]).toBe('SHA256: 0687260331A72403D909F105E69BCF0D32E1BD2493FFC6D9206D11BCD6770739');
+    });
+
+  });
+
+  describe('with incorrect certificate', function () {
+
+    it('should parse oneline certificate', function () {
+      expect(getCertificate(getOnelineCertificate()).commonName).toBe('mozilla.org');
+    });
+
+    it('should parse oneline certificate with XML', function () {
+      const certWithXML = "<ds:X509Certificate>" + getOnelineCertificate() + "</ds:X509Certificate>";
+      expect(getCertificate(certWithXML).commonName).toBe('mozilla.org');
+    });
+
+    it('should parse oneline certificate added in a diff', function () {
+      const addedCert = "+      " + getOnelineCertificate();
+      expect(getCertificate(addedCert).commonName).toBe('mozilla.org');
+    });
+
+    it('should parse oneline certificate removed from a diff', function () {
+      const removedCert = "-      " + getOnelineCertificate();
+      expect(getCertificate(removedCert).commonName).toBe('mozilla.org');
+    });
+
   });
 })();
 
