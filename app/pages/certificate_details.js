@@ -20,19 +20,15 @@ function populateCertificate(certificateData) {
   appendItemToList('SHA256: ' + certificateData.sha256fingerprint, content);
 }
 
-function handleResponse(message) {
-  populateCertificate(message);
-}
-
-function handleError(error) {
-  console.log(`Error: ${error}`);
-}
-
 function init() {
-  const sending = browser.runtime.sendMessage({
-    type: "REQUEST_CERTIFICATE"
+  return new Promise(function (resolve, reject) {
+    chrome.runtime.sendMessage({
+      type: "REQUEST_CERTIFICATE"
+    }, function (response) {
+      populateCertificate(response);
+      resolve(response);
+    });
   });
-  return sending.then(handleResponse, handleError);
 }
 
 if (typeof global !== "undefined") {

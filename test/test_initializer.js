@@ -7,7 +7,6 @@ browser = chrome;
 
 global.forge = forge;
 
-sinon.stub(browser.runtime, "sendMessage");
 browser.runtime.onMessage.addListener = sinon.spy();
 browser.contextMenus.onClicked.addListener = sinon.spy();
 browser.tabs.create = sinon.spy();

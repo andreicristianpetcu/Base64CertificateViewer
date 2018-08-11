@@ -122,20 +122,15 @@
 
     describe('opening certificate details page', function () {
 
-      it('should request the certificate on load', function () {
-        browser.runtime.sendMessage.withArgs({
-          type: "REQUEST_CERTIFICATE"
-        }).returns(Promise.resolve({}));
-
-      });
-
       it('should have the correct common name', async function () {
         document.body.innerHTML = window.__html__['app/pages/certificate_details.html'];
-        browser.runtime.sendMessage.withArgs({
-          type: "REQUEST_CERTIFICATE"
-        }).returns(Promise.resolve({
-            commonName: "DST Root CA X3",
-        }));
+        chrome.runtime.sendMessage.callsFake(function (message, callback) {
+          if (message.type === 'REQUEST_CERTIFICATE') {
+            callback({
+              commonName: "DST Root CA X3",
+            });
+          }
+        });
 
         await init(document);
 
@@ -145,18 +140,20 @@
 
       it('should have the correct fields', async function () {
         document.body.innerHTML = window.__html__['app/pages/certificate_details.html'];
-        browser.runtime.sendMessage.withArgs({
-          type: "REQUEST_CERTIFICATE"
-        }).returns(Promise.resolve({
-          commonName: "DST Root CA X3",
-          organization: "Digital Signature Trust Co.",
-          serialNumber: "44afb080d6a327ba893039862ef8406b",
-          issuer: "DST Root CA X3, Digital Signature Trust Co.",
-          validFrom: "30 September 2000 [2000-09-30T21:12:19.000Z]",
-          validTo: "30 September 2021 [2021-09-30T14:01:15.000Z]",
-          sha1fingerprint: "DAC9024F54D8F6DF94935FB1732638CA6AD77C13",
-          sha256fingerprint: "0687260331A72403D909F105E69BCF0D32E1BD2493FFC6D9206D11BCD6770739",
-        }));
+        chrome.runtime.sendMessage.callsFake(function (message, callback) {
+          if (message.type === 'REQUEST_CERTIFICATE') {
+            callback({
+              commonName: "DST Root CA X3",
+              organization: "Digital Signature Trust Co.",
+              serialNumber: "44afb080d6a327ba893039862ef8406b",
+              issuer: "DST Root CA X3, Digital Signature Trust Co.",
+              validFrom: "30 September 2000 [2000-09-30T21:12:19.000Z]",
+              validTo: "30 September 2021 [2021-09-30T14:01:15.000Z]",
+              sha1fingerprint: "DAC9024F54D8F6DF94935FB1732638CA6AD77C13",
+              sha256fingerprint: "0687260331A72403D909F105E69BCF0D32E1BD2493FFC6D9206D11BCD6770739",
+            });
+          }
+        });
 
         await init(document);
 
