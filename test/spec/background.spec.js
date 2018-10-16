@@ -116,8 +116,13 @@
       expect(getCertificate(removedCert).commonName).toBe('mozilla.org');
     });
 
-    it('should parse oneline certificate wrapped in quotes', function () {
+    it('should parse oneline certificate wrapped in double quotes', function () {
       const certificateWithQuotes = "\"" + getOnelineCertificate() + "\"";
+      expect(getCertificate(certificateWithQuotes).commonName).toBe('mozilla.org');
+    });
+
+    it('should parse oneline certificate wrapped in sinngle quotes', function () {
+      const certificateWithQuotes = "\'" + getOnelineCertificate() + "\'";
       expect(getCertificate(certificateWithQuotes).commonName).toBe('mozilla.org');
     });
 

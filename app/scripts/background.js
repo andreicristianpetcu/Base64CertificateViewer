@@ -25,10 +25,16 @@ function getCertificateFomXml(xmlContainingCertificate) {
   return xmlContainingCertificate;
 }
 
-function cleanupCertificate(rawCertificate) {
-  if(rawCertificate.charAt(0) == "\"" && rawCertificate.charAt(rawCertificate.length - 1) == "\""){
+function stripIdenticalPrefixAndSufix(rawCertificate, prefixAndSufix){
+  if(rawCertificate.charAt(0) == prefixAndSufix && rawCertificate.charAt(rawCertificate.length - 1) == prefixAndSufix){
     rawCertificate = rawCertificate.substring(1, rawCertificate.length - 1)
   }
+  return rawCertificate;
+}
+
+function cleanupCertificate(rawCertificate) {
+  rawCertificate = stripIdenticalPrefixAndSufix(rawCertificate, "\"");
+  rawCertificate = stripIdenticalPrefixAndSufix(rawCertificate, "\'");
 
   if (rawCertificate.indexOf("</") > -1 && rawCertificate.indexOf(">") > -1) {
     rawCertificate = getCertificateFomXml(rawCertificate);
