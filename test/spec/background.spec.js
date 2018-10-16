@@ -116,6 +116,11 @@
       expect(getCertificate(removedCert).commonName).toBe('mozilla.org');
     });
 
+    it('should parse oneline certificate wrapped in quotes', function () {
+      const certificateWithQuotes = "\"" + getOnelineCertificate() + "\"";
+      expect(getCertificate(certificateWithQuotes).commonName).toBe('mozilla.org');
+    });
+
   });
 })();
 

@@ -26,6 +26,10 @@ function getCertificateFomXml(xmlContainingCertificate) {
 }
 
 function cleanupCertificate(rawCertificate) {
+  if(rawCertificate.charAt(0) == "\"" && rawCertificate.charAt(rawCertificate.length - 1) == "\""){
+    rawCertificate = rawCertificate.substring(1, rawCertificate.length - 1)
+  }
+
   if (rawCertificate.indexOf("</") > -1 && rawCertificate.indexOf(">") > -1) {
     rawCertificate = getCertificateFomXml(rawCertificate);
   }
