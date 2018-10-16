@@ -15,7 +15,8 @@
   },
   "background": {
     "scripts": [
-      "scripts/concatenated_background.js"
+      "scripts/forge.min.js",
+      "scripts/background.js"
     ]
   },
   "permissions": [
