@@ -116,20 +116,24 @@ function handleMessage (request, sender, sendResponse) {
 
 chrome.runtime.onMessage.addListener(handleMessage)
 
+let openCertificateDetails = function () {
+  chrome.tabs.create({
+    url: `/pages/certificate_details.html`
+  })
+}
 chrome.contextMenus.onClicked.addListener(function (info) {
   if (info.menuItemId === 'view-certificate') {
 
-    navigator.clipboard.readText().then(function (textFromClipboard) {
-      if (info.selectionText) {
-        selectionText = info.selectionText
-      } else {
+    if (info.selectionText) {
+      selectionText = info.selectionText
+      openCertificateDetails()
+    } else {
+      navigator.clipboard.readText().then(function (textFromClipboard) {
         selectionText = textFromClipboard
-      }
-      chrome.tabs.create({
-        url: `/pages/certificate_details.html`
-      })
+        openCertificateDetails()
+      });
 
-    })
+    }
 
   }
 })

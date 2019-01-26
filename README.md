@@ -9,6 +9,11 @@ You can see the details of certificates.
 ## Installation
 
 	$ npm install
+	& npm run test && npm run dev:firefox
+	
+## Build the extension with 
+
+	& gulp pack --production --vendor=firefox
 
 ## Run tests
     $ npm run test:watch
@@ -21,7 +26,7 @@ You can see the details of certificates.
 
 ## Usage
 
-Run `$ gulp --watch` and load the `dist`-directory into chrome.
+Run `$ gulp --watch` and load the `dist`-directory into firefox.
 
 ## Entryfiles (bundles)
 

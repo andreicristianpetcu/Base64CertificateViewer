@@ -7,7 +7,8 @@
       var contextMenusClickedListener = chrome.contextMenus.onClicked.addListener.getCall(0).args[0];
 
       contextMenusClickedListener({
-        menuItemId: 'view-certificate'
+        menuItemId: 'view-certificate',
+        selectionText: getLetsEncryptCertificate()
       });
 
       assert.ok(browser.tabs.create.withArgs({
