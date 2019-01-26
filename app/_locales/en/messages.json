@@ -8,7 +8,7 @@
     "description": "The short_name (maximum of 12 characters recommended) is a short version of the app's name."
   },
   "appDescription": {
-    "message": "Computers can read PEM encoded certificates. Hummans cannot. This extension might help.",
+    "message": "Computers can read PEM encoded certificates. Humans cannot. This prints the contents of certificates encoded as PEM from clipboard or from selection.",
     "description": "The description of the application"
   }
 }
