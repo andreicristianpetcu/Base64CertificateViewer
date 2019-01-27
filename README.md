@@ -15,7 +15,9 @@ Built with npm 6.7.0 and node v9.11.1
 	
 ## Build the extension with 
 
-	& gulp pack --production --vendor=firefox
+	& ./build_for_firefox.sh
+	
+Gulp is used only to get forge from npm registry and put it in dist.
 
 ## Run tests
     $ npm run test:watch

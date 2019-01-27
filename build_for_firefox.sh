@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-rm -rf packages && npm i && gulp pack --production --vendor=firefox
+rm -rf packages && npm i && node_modules/gulp/bin/gulp.js pack --production --vendor=firefox
