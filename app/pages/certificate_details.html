@@ -5,13 +5,51 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="certificate_details.js"></script>
+  <style type="text/css">
+    html, body {
+      color: #222426;
+      cursor: default;
+      font: caption;
+      font-size: 14px;
+      line-height: normal;
+    }
+
+    h1 {
+      text-align: center;
+      color: #929292;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: auto auto;
+      padding: 10px;
+    }
+
+    .key {
+      color: #929292;
+      font-weight: bold;
+      padding-right: 1em;
+      text-align: right;
+      word-break: initial;
+    }
+
+  </style>
   <title>Certificate details</title>
 </head>
 
 <body class="browser-style">
-  <h1>Certificate details</h1>
-  <div id="certificateDetails">
-    <ul></ul>
-  </div>
+<h1>Certificate details</h1>
+<div id="certificateDetails" class="grid-container">
+  <span class="key">Error</span>
+  <span>Certificate data not found. Either select certificate or copy to clipboard.</span>
+  <span class="key">Usage from selection</span>
+  <span>Go to a page with a PEM certificate for example
+    <a href="https://raw.githubusercontent.com/andreicristianpetcu/alaveteli_ansible/develop/roles/alaveteli/files/certificates/lets-encrypt-x3-cross-signed.pem">this one</a>,
+    select the the text and then right click "Print certificate contents".</span>
+  <span class="key">Usage from clipboard</span>
+  <span>Copy any certificate found on your operating system for example
+    <a href="https://raw.githubusercontent.com/andreicristianpetcu/alaveteli_ansible/develop/roles/alaveteli/files/certificates/lets-encrypt-x3-cross-signed.pem">this one</a>,
+    select, copy it and then right click "Print certificate contents".</span>
+</div>
 </body>
 <html>
