@@ -11,6 +11,8 @@ You can see the details of certificates.
 	$ npm install
 	& npm run test && npm run dev:firefox
 	
+Built with npm 6.7.0 and node v9.11.1
+	
 ## Build the extension with 
 
 	& gulp pack --production --vendor=firefox

@@ -76,6 +76,7 @@
     "karma-spec-reporter": "0.0.31",
     "karma-webpack": "^2.0.13",
     "main-bower-files": "^2.11.1",
+    "npm": "^6.7.0",
     "require-dir": "0.x.x",
     "run-sequence": "^1.1.5",
     "sinon": "^4.3.0",
