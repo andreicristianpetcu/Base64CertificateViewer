@@ -4,8 +4,8 @@ import gulpSequence from 'gulp-sequence'
 gulp.task('build', gulpSequence(
   'clean', [
     'manifest',
-    'copyExternalScripts',
     'scripts',
+    'copyExternalScripts',
     'styles',
     'pages',
     'locales',

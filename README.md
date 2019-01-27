@@ -9,7 +9,7 @@ You can see the details of certificates.
 ## Installation
 
 	$ npm install
-	& npm run test && npm run dev:firefox
+	& npm run dev:firefox
 	
 Built with npm 6.7.0 and node v9.11.1
 	
@@ -19,11 +19,6 @@ Built with npm 6.7.0 and node v9.11.1
 
 ## Run tests
     $ npm run test:watch
-
-    or with desktop for debugging
-
-    $ npm run test:watch
-
 
 
 ## Usage
