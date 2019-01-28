@@ -2,7 +2,7 @@ module.exports = function (config) {
   config.set({
     files: [
       'test/test_initializer.js',
-      'app/scripts/forge.min.js',
+      'node_modules/node-forge/dist/forge.min.js',
       'app/scripts/background.js',
       'test/**/*.spec.js',
       'app/pages/*.html',

@@ -125,18 +125,50 @@ chrome.contextMenus.onClicked.addListener(function (info) {
   if (info.menuItemId === 'view-certificate') {
 
     if (info.selectionText) {
-      selectionText = info.selectionText
-      openCertificateDetails()
+      selectionText = info.selectionText;
+      openCertificateDetails();
     } else {
-      navigator.clipboard.readText().then(function (textFromClipboard) {
-        selectionText = textFromClipboard
-        openCertificateDetails()
-      });
+      if(isFirefox()){
+        navigator.clipboard.readText().then(function (textFromClipboard) {
+          selectionText = textFromClipboard;
+          openCertificateDetails();
+        });
+      } else {
+        selectionText = getClipboardFromChrome();
+        openCertificateDetails();
+      }
 
     }
 
   }
 })
+
+function isFirefox() {
+  return navigator.userAgent.indexOf('Firefox') > 0
+}
+
+function getClipboardFromChrome(){
+  bg = chrome.extension.getBackgroundPage();        // get the background page
+  bg.document.body.innerHTML= "";                   // clear the background page
+
+// add a DIV, contentEditable=true, to accept the paste action
+  var helperdiv = bg.document.createElement("div");
+  document.body.appendChild(helperdiv);
+  helperdiv.contentEditable = true;
+
+// focus the helper div's content
+  var range = document.createRange();
+  range.selectNode(helperdiv);
+  window.getSelection().removeAllRanges();
+  window.getSelection().addRange(range);
+  helperdiv.focus();
+
+// trigger the paste action
+  bg.document.execCommand("Paste");
+
+// read the clipboard contents from the helperdiv
+  return helperdiv.innerHTML;
+}
 
 if (typeof global !== 'undefined') {
   global.getCertificate = getCertificate
