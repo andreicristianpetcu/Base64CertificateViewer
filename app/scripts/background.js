@@ -104,7 +104,8 @@ SHA256: ${sha256fingerprint}`
 
 chrome.contextMenus.create({
   id: 'view-certificate',
-  title: 'Print certificate contents'
+  title: 'Print certificate contents',
+  contexts: ['all']
 })
 
 var selectionText
